@@ -1,0 +1,211 @@
+\documentclass[portrait,final,a0paper,fontscale=0.374]{baposter}
+
+%% read in constants, custom functions and used packages
+\input{functions/packages}
+
+\begin{document}
+
+\begin{poster}%
+	% Poster Options
+	{
+		% Show grid to help with alignment
+		grid=false,
+		% Number of columns and column spacing
+		columns=6,
+		colspacing=1em,
+		% Color style
+		bgColorOne=white,
+		borderColor=iftuccolor,
+		headerColorOne=iftucbackground,
+		headerFontColor=iftucfont,
+		boxColorOne=white,
+		% Format of textbox
+		textborder=rounded,
+		textfont=\small,
+		% Format of text header
+		eyecatcher=true,
+		headerborder=closed,
+		headerheight=0.1\textheight,
+		%  textfont=\sc, An example of changing the text font
+		headershape=rounded,
+		headershade=plain,
+		headerfont=\Large\bf, %Sans Serif
+		% textfont={\setlength{\parindent}{1.5em}},
+		boxshade=plain,
+		%  background=shade-tb,
+		background=plain,
+		linewidth=2pt
+	}
+	% University logo
+	{\includegraphics[height=6.5em]{tuckhseng_color}} 
+	% Title
+	{\bf\Large{Neurocomputational Modeling of Sensorimotor Integration via Cortico-Basal Ganglia-Thalamic Loops}\vspace{6pt}}
+	% Authors
+	{\normalsize Erik~Syniawa\textsuperscript{1} and Fred~Hamker\textsuperscript{1} \\ \vspace{0.8em}
+	
+	\small\textsuperscript{1} Professorship Artificial Intelligence, Department of Computer Science, \\ Chemnitz University of Technology, Chemnitz, Germany \\ \vspace{0.5em}
+	\small Contact: fred.hamker@informatik.tu-chemnitz.de
+	}
+	% Department logo and other logos
+	{	
+		\begin{minipage}[r]{0.1\textwidth}
+			\includegraphics[height=7em]{active_self_logo_color}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[r]{0.1\textwidth}
+			\includegraphics[height=6.5em]{TUC_AI_color}
+		\end{minipage}
+		
+	}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% use height in headerbox to align multiple boxes 
+% height= <size in percent of column height>, else [auto]%
+\headerbox{Introduction}{name=infos,column=0,row=0, span=2, height=0.092}{
+	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
+		\justifying
+		\textit{Sensorimotor integration} is crucial for early human development, yet its neural mechanisms are not fully understood. Our study presents a neurocomputational model that explores the interplay between the cortex, basal ganglia, and thalamus in this process, with a focus on the centro median nuclei (CM) of the intralaminar nuclei (ILN) of the thalamus.\\
+	\end{adjustbox}
+}
+
+\headerbox{Overview}{name=overview,column=2,row=0, span=4, height=0.139}{
+	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
+		\begin{minipage}[r]{0.35\textwidth}
+			\includegraphics[width=0.9\linewidth]{reaching_space}
+			\captionof{figure}{Current virtual robot setup.}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[r]{0.65\textwidth}
+			\justifying
+			\textbf{Key features of the model:}
+			\begin{itemize}
+				\item Advances the study of Baladron et al. \cite{baladronContributionBasalGanglia2023b} on outcome based learning through infant-like motor babbling (act-and-sense)
+				\item Shows how sensorimotor integration occurs through cortico-basal ganglia-thalamo-cortical loops
+				\item Demonstrates the basal ganglia's role in both action selection and movement modulation \parencite{parkBasalGangliaCircuits2020}
+				\item Implements a 2D virtual arm in DH parameters (\textcolor{gray}{gray} in figure 1, \textcolor{blue}{blue} the possible reaching space)
+			\end{itemize}
+		\end{minipage}
+	\end{adjustbox}
+}
+
+
+\headerbox{Computational model}{name=model, column=0, below=infos, span=2, height=0.488}{
+	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
+		\begin{minipage}[t]{\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{model_overview}
+			\captionof{figure}{Overview of the model}
+			\vspace{5pt}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[b]{\textwidth}
+			\input{sections/model_functions}
+		\end{minipage}
+	\end{adjustbox}
+}
+
+
+\headerbox{Model definitions}{name=definitions, column=2, below=overview, span=4, height=0.235}{
+	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
+		The model is implemented in Python 3.12 with the neurosimulator ANNarchy 4.7.3 \parencite{vitayANNarchyCodeGeneration2015}. All neurons are rate-coded.\\
+		
+		\input{sections/model_definitions}
+	\end{adjustbox}
+}
+
+\headerbox{References}{name=refs, column=0, above=bottom, span=5}{
+	\begin{adjustbox}{minipage=0.975\textwidth, margin=0pt, center}
+		\compressbib{\printbibliography[heading=none]}
+	\end{adjustbox}	
+}
+
+\headerbox{Preliminary Results}{name=res, column=2, below=definitions, above=refs, span=4}{
+	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
+		\begin{minipage}[t]{0.475\textwidth}
+			\textbf{Reaching:}\\[2pt]
+			A random coordinate is activated in the PM. If the coordinate has been learnt, certain D1 neurons become active, which in turn encode the joint angle to the coordinate via the SNr activity in M1.\\[1pt]
+		\begin{center}
+			\includegraphics[width=0.8\linewidth]{error_bg}
+			\captionof{figure}{MAE of the joints in the reaching task}
+		\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.475\textwidth}
+			\textbf{Perturbation:}\\[2pt]
+			A random coordinate is activated in the PM. As the activities build up, the joint angles in S1 are perturbed by a random amount by $\Delta \theta_{shoulder}$ and $\Delta \theta_{elbow}$. Both drawn from a Uniform Distribution $\mathcal{U}[-10^\circ, 10^\circ]$.\\
+			\begin{center}
+				\includegraphics[width=0.8\linewidth]{error_pert}
+				\captionof{figure}{MAE of the joints in the perturbation task}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.34\textwidth}
+			\vspace{8pt}
+			\textbf{Modulation of the population code:}\\[2pt]
+			A random target coordinate was learned. Figure 5 shows the population code of shoulder-like and elbow-like neurons under different scaling in D1. The activity of the D1 neurons has a direct influence on the norm of the population code \parencite{parkBasalGangliaCircuits2020}.\\
+			\begin{center}
+				\includegraphics[width=1.1\linewidth]{d1_gain}
+				\captionof{figure}{After 100 ms simulation}
+			\end{center}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.58\textwidth}
+			\vspace{8pt}
+			\textbf{Conclusion:}\\[2pt]
+			To improve performance, we propose the following steps:
+			\begin{enumerate}[leftmargin=*, itemsep=0pt, topsep=0pt, parsep=0pt]
+			\item \textbf{Hyperparameter optimization:}
+			\begin{itemize}[leftmargin=*, itemsep=0pt]
+				\item Conduct extensive hyperparameter tests to find optimal values for learning rules.
+				\item Fine-tune the widths of Gaussian distributions in PM and S1 to balance learning speed, effectiveness, and accuracy.
+			\end{itemize}
+			\item \textbf{Synaptic plasticity analysis:}
+			\begin{itemize}[leftmargin=*, itemsep=0pt]
+				\item Thoroughly examine the plasticity in the connection between D1 and SNr.
+				\item Investigate alternative connectivity patterns, such as one-to-one connections, to potentially improve signal propagation without the need for ``reassembly'' at this junction.
+			\end{itemize}
+			\item \textbf{Comparative analysis with DRL models:}
+			\begin{itemize}[leftmargin=*, itemsep=0pt]
+				\item Benchmark the model's performance against state-of-the-art DRL algorithms such as \textit{PPO}, \textit{SAC}, \textit{TD3}, and \textit{NAF}
+			\end{itemize}
+			\item \textbf{Incorporate additional biologically-inspired mechanisms:}
+			\begin{itemize}[leftmargin=*, itemsep=0pt]
+				\item Explore the integration of mechanisms like synaptic scaling, intrinsic plasticity, or neuromodulation
+			\end{itemize}
+			\end{enumerate}
+		\end{minipage}
+		\hfill
+	\end{adjustbox}
+
+}
+
+
+\headerbox{Training procedure}{name=res, column=0, below=model, above=refs , span=2}{
+	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
+		
+		\begin{minipage}[t]{\textwidth}
+			\includegraphics[width=\textwidth]{training}	
+		\end{minipage}
+		
+	\end{adjustbox}	
+}
+
+
+\headerbox{\large Acknowlegdements}{name=ack, column=5, above=bottom, below=res, span=1}{	
+	\begin{adjustbox}{minipage=0.925\textwidth, margin=5pt, center}
+	\vfill
+	This work was supported by the DFG priority program ”The Active Self” 
+	HA2630/12-2.\\[2pt]
+	\begin{center}
+		\textit{Repository:}\\[2pt]
+		\includegraphics[width=\linewidth]{githubQR}
+	\end{center}
+		
+	\end{adjustbox}
+}
+
+
+\end{poster}
+
+
+\end{document}

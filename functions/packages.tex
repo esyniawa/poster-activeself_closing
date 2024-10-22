@@ -1,0 +1,123 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% References paths
+\usepackage[backend=biber, style=ieee, citestyle=ieee]{biblatex}
+\addbibresource{refs.bib}
+% font size
+\AtBeginBibliography{\footnotesize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Image paths
+\usepackage{graphicx}
+\graphicspath{{logos/}{figures/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Color Settings
+\usepackage{xcolor}
+\definecolor{iftucfont}{RGB}{74,130,70}
+\definecolor{iftuccolor}{RGB}{143,168,92}
+\definecolor{iftucbackground}{RGB}{241,244,234}
+
+\definecolor{loop1}{HTML}{67AB9F}
+\definecolor{loop2}{HTML}{FFB570}
+
+\definecolor{direct}{HTML}{6C8EBF}
+\definecolor{indirect}{HTML}{B85450}
+
+\definecolor{training-set}{HTML}{EA6B66}
+\setlength\bibitemsep{0.8\itemsep}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Font Settings
+\usepackage[sfdefault, regular]{roboto}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Multicol Settings
+\usepackage{multirow}
+\usepackage{multicol}
+\setlength{\columnsep}{1.5em}
+\setlength{\columnseprule}{0mm}
+
+%% Row Settings
+\usepackage{setspace}% for \onehalfspacing
+\usepackage{parskip}
+
+%% Control layout of itemize, enumerate, description
+\usepackage{enumitem}
+
+% page borders and header height
+\usepackage{geometry}
+\geometry{
+	left=35pt,
+	right=5pt,
+	top=10pt
+}
+
+\newcommand{\compresslist}{% Define a command to reduce spacing within itemize/enumerate environments, e.g. \begin{itemize}\compresslist
+			\setlength{\itemsep}{1pt}
+			\setlength{\parskip}{0pt}
+			\setlength{\parsep}{0pt}
+		}
+	
+\newcommand{\compressbib}{%
+		\setlength{\itemsep}{0pt}
+		\setlength{\parskip}{0pt}
+		\setlength{\parsep}{0pt}
+	}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Table and figure settings
+\usepackage{float, booktabs, array, ragged2e}
+
+% Adjust row width in tables 
+\renewcommand{\arraystretch}{1.1}
+
+% for awesome plots and tables from files like .csv
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{listings}
+\lstset{
+	basicstyle=\footnotesize\ttfamily,
+	numbers=left,
+	numberstyle=\tiny,
+	stepnumber=1,
+	numbersep=5pt,
+	backgroundcolor=\color{white},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	captionpos=b,
+	breaklines=true,
+	breakatwhitespace=true,
+	breakautoindent=true,
+	linewidth=\columnwidth
+}
+
+% Graphics package-alike macros for “general” boxes. Like resizing figures and aligning minipages
+\usepackage{adjustbox}
+
+\usepackage[
+font=footnotesize,
+labelfont=bf,
+%labelfont=sc, %Kapitälchen, passt nicht wg. nicht-osf Ziffern
+%%%%labelfont=it, %italics, 
+%%%labelfont=sl, %slanted,
+hypcap=true,
+format=hang,
+%margin={2cm,2cm}
+width=0.8\linewidth
+]{caption}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Other packages
+% to help with long equations
+\usepackage{amsmath}
+
+% for todo notes
+\usepackage{todonotes} 
+
+% for comment blocks
+\usepackage{verbatim}
+
+% link URLs
+\usepackage{url}
+
+\usepackage{lipsum}

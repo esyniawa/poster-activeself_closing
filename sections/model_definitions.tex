@@ -1,0 +1,34 @@
+\textbf{Neuron model:}\\[2pt]
+$$
+\tau \frac{d r^{post}_j }{ dt } + r^{post}_j = \sum_{i \in exc}{w_{ij} \cdot r^{pre}_i} - \sum_{i \in inh}{w_{ij} \cdot r^{pre}_i} - \sum_{k \in lat}{w \cdot r^{post}_k} + baseline + \xi \hspace{2em} \text{with:  } \xi \sim \mathcal{U}
+$$
+
+\textbf{Synaptic learning rule:}\\
+$$\tau_w \frac{d w_{ij} }{ dt } = m_{DA} \cdot C_{ij} - \alpha \left(r^{post}_j - \bar{r}^{post} - \gamma^{post}\right)^2 \hspace{3em}
+m_{DA} = const \cdot \left(r^{DA} - baseline_{DA}\right) \hspace{3em} \tau_{\alpha} \frac{d \alpha_j }{ dt } + \alpha_j = (r^{post}_j - \Theta) \hspace{3em} \vspace{1em}$$
+\vspace{1em}
+\begin{minipage}[t]{0.5\textwidth}
+	\centering
+	\textit{Cortico-striatal} (PM $\rightarrow$ Striatum)
+	$$ C_{ij} = \left(r^{pre}_j - \bar{r}^{pre} - \gamma^{pre}\right)^+ \left(r^{post}_j - \bar{r}^{post} - \gamma^{post}\right) $$	
+\end{minipage}
+\begin{minipage}[t]{0.5\textwidth}
+	\centering
+	\textit{Striatal-nigral} (Striatum $\rightarrow$ SNr)
+	$$ C_{ij} = \left(r^{pre}_j - \bar{r}^{pre} - \gamma^{pre}\right)^+ \left(\bar{r}^{post} + \gamma^{post} - r^{post}_j \right) $$
+\end{minipage}
+
+\textbf{Reward Prediction Error (RPE):}\\[5pt]
+\begin{minipage}[t]{0.45\textwidth}
+	When certain striatum neurons are repeatedly active, they inhibit the DA release ($r^{DA}$). 
+	This prevents new associations from being learned by the same striatum neurons (\textit{novelty learning}).\\
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.5\textwidth}
+	\centering
+(Striatum $\rightarrow$ SNc)
+$$ \tau \frac{d w_{j}^{DA}}{dt} =  \left(r^{DA} - baseline_{DA}\right)^+ \left( r^{pre}_j - \bar{r}^{pre} - \gamma^{pre}\right)^+ $$
+\end{minipage}
+
+
+
