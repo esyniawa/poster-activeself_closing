@@ -1,0 +1,814 @@
+
+%  LaTeX file for generating the Model Description Table in Fig. 5 of
+%
+%  Nordlie E, Gewaltig M-O, Plesser HE (2009)
+%  Towards Reproducible Descriptions of Neuronal Network Models.
+%  PLoS Comput Biol 5(8): e1000456.
+%
+%  Paper URL : http://dx.doi.org/10.1371/journal.pcbi.1000456
+%  Figure URL: http://dx.doi.org/10.1371/journal.pcbi.1000456.g005
+%
+%  This file is released under a
+%
+%   Creative Commons Attribution, non-commercial, share-alike licence
+%   http://creativecommons.org/licenses/by-nc-sa/3.0/de/deed.en
+%
+%  with the following specifications:
+%
+%  1. When publishing tables generated from this LaTeX file and modified
+%     versions of it, you must cite the paper by Nordlie et al given above.
+%
+%  2. The non-commercial clause applies only to the distribution of THIS FILE
+%     and LaTeX source code files derived from it. You may commercially publish
+%     documents generated using this file and derivatived versions of this file.
+%
+%  Contact: Hans Ekkehard Plesser, UMB (hans.ekkehard.plesser at umb.no)
+
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{colortbl}
+
+\usepackage[fleqn]{amsmath}
+\setlength{\mathindent}{0em}
+%%\usepackage{mathpazo}
+\usepackage{breqn}
+
+\usepackage[scaled=.95]{helvet}
+\renewcommand\familydefault{\sfdefault}
+
+\renewcommand\arraystretch{1.2}
+\pagestyle{empty}
+
+\newcommand{\hdr}[3]{
+    \multicolumn{#1}{|l|}{
+        \color{white}\cellcolor[gray]{0.0}
+        \textbf{\makebox[0pt]{#2}\hspace{0.5\linewidth}\makebox[0pt][c]{#3}}
+    }
+}
+
+\begin{document}
+
+\noindent
+\begin{tabularx}{\linewidth}{|l|X|}\hline
+\hdr{2}{A}{Model Summary}\\ \hline
+\textbf{Populations}     & 10: PM, S1, SNc, CM, StrD1, SNr, VL, M1, Output\_Shoulder, Output\_Elbow \\ \hline
+\textbf{Topology}        & --- \\ \hline
+\textbf{Connectivity}    & Connectivity matrix, All-to-All, One-to-One \\ \hline
+\textbf{Neuron models}   & Baseline Neuron, Rate-coded neuron \\ \hline
+\textbf{Channel models}  & --- \\ \hline
+\textbf{Synapse models}  & --- \\ \hline
+\textbf{Plasticity}      & \\ \hline
+\textbf{Input}           & --- \\ \hline
+\textbf{Measurements}    &  \\ \hline
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|l|l|X|}\hline
+\hdr{3}{B}{Populations}\\ \hline
+    \textbf{Name}   & \textbf{Elements} & \textbf{Size} \\ \hline
+
+    PM             & Baseline Neuron        & $N_{\text{PM}}$ = 494 (19*26)  \\ \hline
+
+    S1             & Baseline Neuron        & $N_{\text{S1}}$ = 361 (19*19)  \\ \hline
+
+    SNc             & Neuron 7        & $N_{\text{SNc}}$ = 2  \\ \hline
+
+    CM             & Baseline Neuron        & $N_{\text{CM}}$ = 32 (16*2)  \\ \hline
+
+    StrD1             & Neuron 5        & $N_{\text{StrD1}}$ = 11552 (19*19*32)  \\ \hline
+
+    SNr             & Neuron 6        & $N_{\text{SNr}}$ = 32 (16*2)  \\ \hline
+
+    VL             & Neuron 4        & $N_{\text{VL}}$ = 32 (16*2)  \\ \hline
+
+    M1             & Neuron 4        & $N_{\text{M1}}$ = 32 (16*2)  \\ \hline
+
+    Output\_Shoulder             & Neuron 2        & $N_{\text{Output\_Shoulder}}$ = 3  \\ \hline
+
+    Output\_Elbow             & Neuron 2        & $N_{\text{Output\_Elbow}}$ = 3  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|l|l|l|X|X|}\hline
+\hdr{5}{C}{Connectivity}\\ \hline
+\textbf{Source} & \textbf{Destination} & \textbf{Target} & \textbf{Synapse} & \textbf{Pattern} \\ \hline
+
+    CM & StrD1 & exc & - &
+    Connectivity matrix \\ \hline
+
+    CM & StrD1 & exc & - &
+    Connectivity matrix \\ \hline
+
+    S1 & StrD1 & mod & - &
+    Connectivity matrix \\ \hline
+
+    PM & StrD1 & exc & Synapse 2 &
+    All-to-All, weights 0.0, delays 0.0 \\ \hline
+
+    StrD1 & SNr & inh & - &
+    Connectivity matrix \\ \hline
+
+    StrD1 & SNr & inh & - &
+    Connectivity matrix \\ \hline
+
+    SNc & SNr & dopa & - &
+    All-to-All, weights 1.0, delays 0.0 \\ \hline
+
+    SNc & StrD1 & dopa & - &
+    All-to-All, weights 1.0, delays 0.0 \\ \hline
+
+    SNr & VL & inh & - &
+    One-to-One, weights 1.0, delays 0.0 \\ \hline
+
+    VL & M1 & exc & - &
+    One-to-One, weights 0.8, delays 0.0 \\ \hline
+
+    M1 & Output\_Shoulder & exc & - &
+    Connectivity matrix \\ \hline
+
+    M1 & Output\_Elbow & exc & - &
+    Connectivity matrix \\ \hline
+
+    M1 & Output\_Shoulder & norm & - &
+    All-to-All, weights 1.0, delays 0.0 \\ \hline
+
+    M1 & Output\_Elbow & norm & - &
+    All-to-All, weights 1.0, delays 0.0 \\ \hline
+
+    StrD1 & SNc & inh & Synapse 4 &
+    All-to-All, weights 0.0, delays 0.0 \\ \hline
+
+    StrD1 & SNc & inh & Synapse 4 &
+    All-to-All, weights 0.0, delays 0.0 \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+\hdr{2}{D}{Neuron Models}\\ \hline
+\textbf{Name} & Neuron 1 \\ \hline
+\textbf{Type} & User-defined model of a rate-coded neuron.\\ \hline
+\textbf{Equations} &
+
+
+\begin{dmath*}
+{r}(t) = \sum_{\text{exc}} w \cdot r^{\text{pre}}(t-d) \cdot r_{\text{scale}}
+\end{dmath*}
+
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Neuron 2 \\ \hline
+\textbf{Type} & User-defined model of a rate-coded neuron.\\ \hline
+\textbf{Equations} &
+
+
+\begin{dmath*}
+{r}(t) = \begin{cases}\frac{\sum_{\text{exc}} w \cdot r^{\text{pre}}(t-d)}{\sum_{\text{norm}} w \cdot r^{\text{pre}}(t-d)}\qquad \text{if} \quad \sum_{\text{norm}} w \cdot r^{\text{pre}}(t-d) > 0.0\\ \sum_{\text{exc}} w \cdot r^{\text{pre}}(t-d) \qquad \text{otherwise.} \end{cases}
+\end{dmath*}
+
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Baseline Neuron \\ \hline
+\textbf{Type} & Time-dynamic neuron with baseline to be set. \\ \hline
+\textbf{Equations} &
+
+
+\begin{dmath*}
+{{\text{base}}}(t) = {\text{baseline}} + {\text{noise}} \cdot \mathcal{U}{\left(-1.0,1.0 \right)}
+\end{dmath*}
+
+\begin{dmath*}
+\frac{d{r}(t)}{dt} = \begin{cases}\frac{- {r}(t) + {{\text{base}}}(t)}{\tau_{\text{up}}}\qquad \text{if} \quad {\text{baseline}} > 0.01\\ - \frac{{r}(t)}{\tau_{\text{down}}} \qquad \text{otherwise.} \end{cases}
+\end{dmath*}
+
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Neuron 4 \\ \hline
+\textbf{Type} & User-defined model of a rate-coded neuron.\\ \hline
+\textbf{Equations} &
+
+
+\begin{dmath*}
+\frac{d{{\text{mp}}}(t)}{dt} \cdot \tau + {{\text{mp}}}(t) = \sum_{\text{exc}} w \cdot r^{\text{pre}}(t-d) - \sum_{\text{inh}} w \cdot r^{\text{pre}}(t-d) + {\text{baseline}} + {\text{noise}} \cdot \mathcal{U}{\left(-1.0,1.0 \right)}
+\end{dmath*}
+
+\begin{dmath*}
+{r}(t) = {{\text{mp}}}(t)
+\end{dmath*}
+
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Neuron 5 \\ \hline
+\textbf{Type} & User-defined model of a rate-coded neuron.\\ \hline
+\textbf{Equations} &
+
+
+\begin{dmath*}
+\frac{d{{\text{mp}}}(t)}{dt} \cdot \tau + {{\text{mp}}}(t) = \sum_{\text{mod}} w \cdot r^{\text{pre}}(t-d) \cdot \left(\sum_{\text{exc}} w \cdot r^{\text{pre}}(t-d) - \sum_{\text{inh}} w \cdot r^{\text{pre}}(t-d)\right) + {\text{baseline}} + {\text{noise}} \cdot \mathcal{U}{\left(-1.0,1.0 \right)}
+\end{dmath*}
+
+\begin{dmath*}
+{r}(t) = \begin{cases}\operatorname{logistic}{\left({{\text{mp}}}(t) \right)}\qquad \text{if} \quad {{\text{mp}}}(t) > 1.0\\ ({{\text{mp}}}(t))^+ \qquad \text{otherwise.} \end{cases}
+\end{dmath*}
+
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Neuron 6 \\ \hline
+\textbf{Type} & User-defined model of a rate-coded neuron.\\ \hline
+\textbf{Equations} &
+
+
+\begin{dmath*}
+\frac{d{{\text{mp}}}(t)}{dt} \cdot \tau + {{\text{mp}}}(t) = baseline_{snr} + \sum_{\text{exc}} w \cdot r^{\text{pre}}(t-d) - \sum_{\text{inh}} w \cdot r^{\text{pre}}(t-d) + {\text{noise}} \cdot \mathcal{U}{\left(-1.0,1.0 \right)}
+\end{dmath*}
+
+\begin{dmath*}
+{r}(t) = {{\text{mp}}}(t)
+\end{dmath*}
+
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Neuron 7 \\ \hline
+\textbf{Type} & User-defined model of a rate-coded neuron.\\ \hline
+\textbf{Equations} &
+
+
+\begin{dmath*}
+{s_{\text{inh}}}(t) = \sum_{\text{inh}} w \cdot r^{\text{pre}}(t-d)
+\end{dmath*}
+
+\begin{dmath*}
+{{\text{aux}}}(t) = baseline_{dopa} \cdot \left(1 - {\text{firing}}\right) + {\text{firing}} \cdot (1.0 - {s_{\text{inh}}}(t))^+
+\end{dmath*}
+
+\begin{dmath*}
+\frac{d{{\text{mp}}}(t)}{dt} \cdot \tau + {{\text{mp}}}(t) = {{\text{aux}}}(t)
+\end{dmath*}
+
+\begin{dmath*}
+{r}(t) = {{\text{mp}}}(t)
+\end{dmath*}
+
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+\hdr{2}{E}{Synapse Models}\\ \hline
+\textbf{Name} & Reversed Synapse \\ \hline
+\textbf{Type} & Higher pre-synaptic activity lowers the synaptic transmission and vice versa.\\ \hline
+
+\textbf{PSP} & \begin{dmath*}
+w(t) \cdot ({\text{reversal}} - {r^{\text{pre}}}(t-d))^+
+\end{dmath*}
+\\ \hline
+
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Synapse 2 \\ \hline
+\textbf{Type} & User-defined rate-coded synapse.\\ \hline
+
+\textbf{PSP} & \begin{dmath*}
+w(t) \cdot r^{\text{pre}}(t)
+\end{dmath*}
+\\ \hline
+
+\textbf{Equations} & 
+\begin{dmath*}
+\frac{d{\alpha}(t)}{dt} \cdot \tau_\alpha + {\alpha}(t) = (- {\text{regularization}}_{\text{threshold}} + {{\text{mp}}^{\text{post}}}(t))^+
+\end{dmath*}
+
+\begin{dmath*}
+{{\text{dopa}}_{\text{sum}}}(t) = 2.0 \cdot (\sum_{\text{dopa}} \text{psp}(t))^{\text{post}} - 2.0 \cdot baseline_{dopa}
+\end{dmath*}
+
+\begin{dmath*}
+{{\text{trace}}}(t) = \left(- {\text{threshold}}_{\text{pre}} + {r^{\text{pre}}}(t-d)\right) \cdot (- {\text{threshold}}_{\text{post}} + {r^{\text{post}}}(t) - \operatorname{mean}{\left({r^{\text{post}}}(t) \right)})^+
+\end{dmath*}
+
+\begin{dmath*}
+{{\text{condition}}_0}(t) = \begin{cases}1\qquad \text{if} \quad {w}(t) > 0.0 \wedge {{\text{trace}}}(t) > 0.0\\ 0 \qquad \text{otherwise.} \end{cases}
+\end{dmath*}
+
+\begin{dmath*}
+{{\text{dopa}}_{\text{mod}}}(t) = \begin{cases}K_{\text{burst}} \cdot {\text{DA}}_{\text{type}} \cdot {{\text{dopa}}_{\text{sum}}}(t)\qquad \text{if} \quad {\text{DA}}_{\text{type}} \cdot {{\text{dopa}}_{\text{sum}}}(t) > 0\\ K_{\text{dip}} \cdot {\text{DA}}_{\text{type}} \cdot {{\text{condition}}_0}(t) \cdot {{\text{dopa}}_{\text{sum}}}(t) \qquad \text{otherwise.} \end{cases}
+\end{dmath*}
+
+\begin{dmath*}
+{\delta}(t) = - {\alpha}(t) \cdot (- {\text{threshold}}_{\text{post}} + {r^{\text{post}}}(t) - \operatorname{mean}{\left({r^{\text{post}}}(t) \right)})^+ + {{\text{dopa}}_{\text{mod}}}(t) \cdot {{\text{trace}}}(t)
+\end{dmath*}
+
+\begin{dmath*}
+\frac{d{w}(t)}{dt} \cdot \tau = {\delta}(t)
+\end{dmath*}
+  
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Synapse 3 \\ \hline
+\textbf{Type} & User-defined rate-coded synapse.\\ \hline
+
+\textbf{PSP} & \begin{dmath*}
+w(t) \cdot r^{\text{pre}}(t)
+\end{dmath*}
+\\ \hline
+
+\textbf{Equations} & 
+\begin{dmath*}
+\frac{d{\alpha}(t)}{dt} \cdot \tau_\alpha + {\alpha}(t) = ({\text{regularization}}_{\text{threshold}} - {{\text{mp}}^{\text{post}}}(t))^+
+\end{dmath*}
+
+\begin{dmath*}
+{{\text{dopa}}_{\text{sum}}}(t) = 2.0 \cdot (\sum_{\text{dopa}} \text{psp}(t))^{\text{post}} - 2.0 \cdot baseline_{dopa}
+\end{dmath*}
+
+\begin{dmath*}
+{{\text{trace}}}(t) = \left(- {\text{threshold}}_{\text{post}} - {r^{\text{post}}}(t) + \operatorname{mean}{\left({r^{\text{post}}}(t) \right)}\right) \cdot (- {\text{threshold}}_{\text{pre}} + {r^{\text{pre}}}(t-d) - \operatorname{mean}{\left({r^{\text{pre}}}(t-d) \right)})^+
+\end{dmath*}
+
+\begin{dmath*}
+{{\text{aux}}}(t) = \begin{cases}{\text{negterm}}\qquad \text{if} \quad {{\text{trace}}}(t) > 0\\ 0 \qquad \text{otherwise.} \end{cases}
+\end{dmath*}
+
+\begin{dmath*}
+{{\text{dopa}}_{\text{mod}}}(t) = \begin{cases}K_{\text{burst}} \cdot {\text{DA}}_{\text{type}} \cdot {{\text{dopa}}_{\text{sum}}}(t)\qquad \text{if} \quad {\text{DA}}_{\text{type}} \cdot {{\text{dopa}}_{\text{sum}}}(t) > 0\\ K_{\text{dip}} \cdot {\text{DA}}_{\text{type}} \cdot {{\text{aux}}}(t) \cdot {{\text{dopa}}_{\text{sum}}}(t) \qquad \text{otherwise.} \end{cases}
+\end{dmath*}
+
+\begin{dmath*}
+{\delta}(t) = - {\alpha}(t) \cdot (- {\text{threshold}}_{\text{post}} - {r^{\text{post}}}(t) + \operatorname{mean}{\left({r^{\text{post}}}(t) \right)})^+ + {{\text{dopa}}_{\text{mod}}}(t) \cdot {{\text{trace}}}(t)
+\end{dmath*}
+
+\begin{dmath*}
+\frac{d{w}(t)}{dt} \cdot \tau = {\delta}(t)
+\end{dmath*}
+  
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Synapse 4 \\ \hline
+\textbf{Type} & User-defined rate-coded synapse.\\ \hline
+
+\textbf{PSP} & \begin{dmath*}
+w(t) \cdot r^{\text{pre}}(t)
+\end{dmath*}
+\\ \hline
+
+\textbf{Equations} & 
+\begin{dmath*}
+{{\text{aux}}}(t) = \begin{cases}1.0\qquad \text{if} \quad {{\text{mp}}^{\text{post}}}(t) > 0\\ 3.0 \qquad \text{otherwise.} \end{cases}
+\end{dmath*}
+
+\begin{dmath*}
+{\delta}(t) = {{\text{aux}}}(t) \cdot (- baseline_{dopa} + {r^{\text{post}}}(t))^+ \cdot (- {\text{threshold}} + {r^{\text{pre}}}(t-d) - \operatorname{mean}{\left({r^{\text{pre}}}(t-d) \right)})^+
+\end{dmath*}
+
+\begin{dmath*}
+\frac{d{w}(t)}{dt} \cdot \tau = {\delta}(t)
+\end{dmath*}
+  
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Synapse 5 \\ \hline
+\textbf{Type} & STDP rule for inhibitory synapses introduced by Vogels et al. (2011).\\ \hline
+
+\textbf{PSP} & \begin{dmath*}
+w(t) \cdot r^{\text{pre}}(t)
+\end{dmath*}
+\\ \hline
+
+\textbf{Equations} & 
+\begin{dmath*}
+\frac{d{w}(t)}{dt} \cdot \tau = - \rho \cdot {r^{\text{post}}}(t) + {r^{\text{post}}}(t) \cdot (- {\text{threshold}}_{\text{pre}} + {r^{\text{pre}}}(t-d))^+
+\end{dmath*}
+  
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Synapse 6 \\ \hline
+\textbf{Type} & User-defined rate-coded synapse.\\ \hline
+
+\textbf{PSP} & \begin{dmath*}
+w(t) \cdot r^{\text{pre}}(t)
+\end{dmath*}
+\\ \hline
+
+\textbf{Equations} & 
+\begin{dmath*}
+\frac{d{w}(t)}{dt} \cdot {\text{LearnTau}} = - \alpha \cdot \left({r^{\text{post}}}(t)\right)^{2} \cdot {w}(t) + {r^{\text{post}}}(t) \cdot \left({r^{\text{pre}}}(t-d) - \operatorname{mean}{\left({r^{\text{pre}}}(t-d) \right)}\right)
+\end{dmath*}
+  
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Synapse 7 \\ \hline
+\textbf{Type} & User-defined rate-coded synapse.\\ \hline
+
+\textbf{PSP} & \begin{dmath*}
+w(t) \cdot r^{\text{pre}}(t)
+\end{dmath*}
+\\ \hline
+
+\textbf{Equations} & 
+\begin{dmath*}
+\frac{d{w}(t)}{dt} \cdot {\text{TauAH}} = - \rho \cdot {r^{\text{pre}}}(t-d) \cdot \left(\alpha \cdot {w}(t) + \gamma\right) + {r^{\text{post}}}(t) \cdot {r^{\text{pre}}}(t-d)
+\end{dmath*}
+  
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Synapse 8 \\ \hline
+\textbf{Type} & User-defined rate-coded synapse.\\ \hline
+
+\textbf{PSP} & \begin{dmath*}
+w(t) \cdot r^{\text{pre}}(t)
+\end{dmath*}
+\\ \hline
+
+\textbf{Equations} & 
+\begin{dmath*}
+\frac{d{w}(t)}{dt} \cdot \tau_W = {r^{\text{post}}}(t) \cdot {r^{\text{pre}}}(t-d) \cdot \left(- \alpha + {r^{\text{post}}}(t)\right)
+\end{dmath*}
+  
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Synapse 9 \\ \hline
+\textbf{Type} & User-defined rate-coded synapse.\\ \hline
+
+\textbf{PSP} & \begin{dmath*}
+w(t) \cdot r^{\text{pre}}(t)
+\end{dmath*}
+\\ \hline
+
+\textbf{Equations} & 
+\begin{dmath*}
+\frac{d{w}(t)}{dt} = \eta \cdot \left(- \alpha \cdot \left({r^{\text{post}}}(t)\right)^{2} \cdot {w}(t) + {r^{\text{post}}}(t) \cdot {r^{\text{pre}}}(t-d)\right)
+\end{dmath*}
+  
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.15\linewidth}|X|}\hline
+
+\textbf{Name} & Synapse 10 \\ \hline
+\textbf{Type} & User-defined rate-coded synapse.\\ \hline
+
+\textbf{PSP} & \begin{dmath*}
+w(t) \cdot r^{\text{pre}}(t)
+\end{dmath*}
+\\ \hline
+
+\textbf{Equations} & 
+\begin{dmath*}
+\frac{d{{\text{theta}}}(t)}{dt} \cdot \tau + {{\text{theta}}}(t) = \left({r^{\text{post}}}(t)\right)^{2}
+\end{dmath*}
+
+\begin{dmath*}
+\frac{d{w}(t)}{dt} = \eta \cdot {r^{\text{post}}}(t) \cdot {r^{\text{pre}}}(t-d) \cdot \left({r^{\text{post}}}(t) - {{\text{theta}}}(t)\right)
+\end{dmath*}
+  
+\\ \hline
+
+
+
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|X|}\hline
+\hdr{1}{F}{Parameters}\\ \hline
+\\ \hline
+\end{tabularx}
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Constants} &\textbf{Name} & \textbf{Value}   \\ \hline
+
+    & ${\text{baseline}}_{\text{dopa}}$        & 0.1  \\\\ \\hline
+
+    & ${\text{baseline}}_{\text{snr}}$        & 1.0  \\\\ \\hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|X|}\hline
+\textbf{Functions} &  
+\begin{dmath*}
+{\text{logistic}}(x) = 0.5 + \frac{1}{1 + 33.1154519586923 \cdot e^{- 3.5 \cdot x}}
+\end{dmath*}
+
+\\ \hline
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Population} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    PM             & $\tau_{\text{up}}$        & 10.0  \\ \hline
+
+                 & $\tau_{\text{down}}$        & 20.0  \\ \hline
+
+                 & ${\text{baseline}}$        & 0.0  \\ \hline
+
+                 & ${\text{noise}}$        & 0.0  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Population} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    S1             & $\tau_{\text{up}}$        & 10.0  \\ \hline
+
+                 & $\tau_{\text{down}}$        & 20.0  \\ \hline
+
+                 & ${\text{baseline}}$        & 0.0  \\ \hline
+
+                 & ${\text{noise}}$        & 0.0  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Population} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    SNc             & $\tau$        & 10.0  \\ \hline
+
+                 & ${\text{firing}}$        & 0.0  \\ \hline
+
+                 & ${\text{factor}}_{\text{inh}}$        & 10.0  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Population} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    CM             & $\tau_{\text{up}}$        & 20.0  \\ \hline
+
+                 & $\tau_{\text{down}}$        & 20.0  \\ \hline
+
+                 & ${\text{baseline}}$        & 0.0  \\ \hline
+
+                 & ${\text{noise}}$        & 0.01  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Population} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    StrD1             & $\tau$        & 10.0  \\ \hline
+
+                 & ${\text{baseline}}$        & 0.0  \\ \hline
+
+                 & ${\text{noise}}$        & 0.0  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Population} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    SNr             & $\tau$        & 10.0  \\ \hline
+
+                 & ${\text{noise}}$        & 0.01  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Population} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    VL             & $\tau$        & 10.0  \\ \hline
+
+                 & ${\text{baseline}}$        & 0.0  \\ \hline
+
+                 & ${\text{noise}}$        & 0.01  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Population} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    M1             & $\tau$        & 50.0  \\ \hline
+
+                 & ${\text{baseline}}$        & 0.0  \\ \hline
+
+                 & ${\text{noise}}$        & 0.0  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Projection} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    PM  $\rightarrow$ StrD1 with target exc & $\tau$        & 200.0  \\ \hline
+
+     & $\tau_\alpha$        & 100.0  \\ \hline
+
+     & ${\text{regularization}}_{\text{threshold}}$        & 0.8  \\ \hline
+
+     & $K_{\text{burst}}$        & 1.0  \\ \hline
+
+     & $K_{\text{dip}}$        & 0.4  \\ \hline
+
+     & ${\text{DA}}_{\text{type}}$        & 1.0  \\ \hline
+
+     & ${\text{threshold}}_{\text{pre}}$        & 0.0  \\ \hline
+
+     & ${\text{threshold}}_{\text{post}}$        & 0.05  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Projection} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    StrD1  $\rightarrow$ SNc with target inh & $\tau$        & 200.0  \\ \hline
+
+     & ${\text{threshold}}$        & 0.05  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|p{0.25\linewidth}|p{0.25\linewidth}|X|}\hline
+\textbf{Projection} & \textbf{Parameter} & \textbf{Value}   \\ \hline
+
+    StrD1  $\rightarrow$ SNc with target inh & $\tau$        & 200.0  \\ \hline
+
+     & ${\text{threshold}}$        & 0.05  \\ \hline
+
+\end{tabularx}
+
+\vspace{2ex}
+
+\noindent
+\begin{tabularx}{\linewidth}{|l|X|}\hline
+\hdr{2}{G}{Input}\\ \hline
+\textbf{Type} & \textbf{Description} \\ \hline
+---
+\\ \hline
+\end{tabularx}
+
+\vspace{2ex}
+
+
+\noindent
+\begin{tabularx}{\linewidth}{|l|X|}\hline
+\hdr{2}{H}{Measurement}\\ \hline
+\textbf{Type} & \textbf{Description} \\ \hline
+---
+\\ \hline
+\end{tabularx}
+
+\end{document}

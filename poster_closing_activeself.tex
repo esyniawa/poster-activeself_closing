@@ -64,27 +64,27 @@
 \headerbox{Introduction}{name=infos,column=0,row=0, span=2, height=0.092}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
 		\justifying
-		\textit{Sensorimotor integration} is crucial for early human development, yet its neural mechanisms are not fully understood. Our study presents a neurocomputational model that explores the interplay between the cortex, basal ganglia, and thalamus in this process, with a focus on the centro median nuclei (CM) of the intralaminar nuclei (ILN) of the thalamus.\\
+		\textit{Sensorimotor integration} is crucial for early human development, yet its neural mechanisms are not fully understood.\\ Our study presents a neurocomputational model that explores the interplay between the cortex, basal ganglia, and thalamus in this process, with a focus on the centro median nuclei (CM) of the intralaminar nuclei (ILN) of the thalamus.\\
 	\end{adjustbox}
 }
 
-\headerbox{Overview}{name=overview,column=2,row=0, span=4, height=0.139}{
+\headerbox{Overview}{name=overview,column=2,row=0, span=4}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
-		\begin{minipage}[r]{0.35\textwidth}
-			\includegraphics[width=0.9\linewidth]{reaching_space}
+		\begin{minipage}[r]{0.28\textwidth}
+			\includegraphics[width=0.9\linewidth]{movement_plan}
 			\captionof{figure}{Current virtual robot setup.}
 		\end{minipage}
 		\hfill
-		\begin{minipage}[r]{0.65\textwidth}
+		\begin{minipage}[r]{0.72\textwidth}
 			\justifying
-			\textbf{Key features of the model:}
-			\begin{itemize}
-				\item Advances the study of Baladron et al. \cite{baladronContributionBasalGanglia2023b} on outcome based learning through infant-like motor babbling (act-and-sense)
-				\item Shows how sensorimotor integration occurs through cortico-basal ganglia-thalamo-cortical loops
-				\item Demonstrates the basal ganglia's role in both action selection and movement modulation \parencite{parkBasalGangliaCircuits2020}
-				\item Implements a 2D virtual arm in DH parameters (\textcolor{gray}{gray} in figure 1, \textcolor{blue}{blue} the possible reaching space)
-			\end{itemize}
+				\textbf{Task:}
+				We implemented a virtual robot that can move from arbitrary \textcolor{blue}{starting position} to arbitrary \textcolor{red}{target position} in the plane (Figure 1)\\[3pt]
+				\textbf{Training:}
+				Through infant-like motor babbling, our network forms associations between the action (joint angle) and the outcome (position achieved)\parencite{baladronContributionBasalGanglia2023b}.The internal state (Joint angle of initial state) is projected via the CM into the CBGT loop, which ensures that action and outcome are learned under one internal state\\[3pt]
+				\textbf{Features:}
+				Shows how sensorimotor integration occurs through cortico-basal ganglia-thalamo-cortical loops with more dynamical role of the basal ganglia in both action selection and movement modulation \parencite{parkBasalGangliaCircuits2020}
 		\end{minipage}
+		\hfill
 	\end{adjustbox}
 }
 
@@ -105,11 +105,33 @@
 }
 
 
-\headerbox{Model definitions}{name=definitions, column=2, below=overview, span=4, height=0.235}{
+\headerbox{Model definitions}{name=definitions, column=2, below=overview, span=4}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
+		\begin{minipage}[r]{0.475\textwidth}
 		The model is implemented in Python 3.12 with the neurosimulator ANNarchy 4.7.3 \parencite{vitayANNarchyCodeGeneration2015}. All neurons are rate-coded.\\
+				
+		\textbf{Neuron model:}\\
+		$$
+		\tau \frac{d r^{post}_j }{ dt } + r^{post}_j = \sum_{i \in exc}{w_{ij} \cdot r^{pre}_i} - \sum_{i \in inh}{w_{ij} \cdot r^{pre}_i} + baseline + \xi 
+		$$
+		$${mp}(t) = \begin{cases}\operatorname{logistic}{\left({r}(t) \right)}\qquad \text{if} \quad {r}(t) > 1.0\\ ({r}(t))^+ \qquad \text{otherwise.} \end{cases} \hspace{2em} \text{with:  } \xi \sim \mathcal{U}$$
 		
-		\input{sections/model_definitions}
+		
+		\textbf{Synaptic learning rule:}\\
+		$$\tau_w \frac{d w_{ij} }{ dt } = m_{DA} \cdot C_{ij} - \alpha \left(r^{post}_j - \bar{r}^{post} - \gamma^{post}\right)^2$$
+		\end{minipage}
+		\hfill
+		\begin{minipage}[r]{0.475\textwidth}
+		\justifying
+		$$m_{DA} = const \cdot \left(r^{DA} - baseline_{DA}\right) \hspace{1.5em} \tau_{\alpha} \frac{d \alpha_j }{ dt } + \alpha_j = (r^{post}_j - \Theta)$$
+		\textit{Cortico-striatal} (PM $\rightarrow$ Striatum)
+		$$ C_{ij} = \left(r^{pre}_j - \bar{r}^{pre} - \gamma^{pre}\right)^+ \left(r^{post}_j - \bar{r}^{post} - \gamma^{post}\right) $$	
+		\textbf{Reward Prediction Error (RPE):}\\[5pt]
+			When certain striatum neurons are repeatedly active, they inhibit the DA release ($r^{DA}$). 
+			This prevents new associations from being learned by the same striatum neurons (\textit{novelty learning}).\\
+			(Striatum $\rightarrow$ SNc)
+			$$ \tau \frac{d w_{j}^{DA}}{dt} =  \left(r^{DA} - baseline_{DA}\right)^+ \left( r^{pre}_j - \bar{r}^{pre} - \gamma^{pre}\right)^+ $$
+		\end{minipage}
 	\end{adjustbox}
 }
 
@@ -119,27 +141,27 @@
 	\end{adjustbox}	
 }
 
-\headerbox{Preliminary Results}{name=res, column=2, below=definitions, above=refs, span=4}{
+\headerbox{Results}{name=res, column=2, below=definitions, above=refs, span=4}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
 		\begin{minipage}[t]{0.475\textwidth}
 			\textbf{Reaching:}\\[2pt]
-			A random coordinate is activated in the PM. If the coordinate has been learnt, certain D1 neurons become active, which in turn encode the joint angle to the coordinate via the SNr activity in M1.\\[1pt]
+			A random \textcolor{red}{target position} is activated in the PM. If the coordinate has been learnt, certain D1 neurons become active, which in turn encode the joint angle to the coordinate via the SNr activity in M1.\\[10pt]
 		\begin{center}
-			\includegraphics[width=0.8\linewidth]{error_bg}
-			\captionof{figure}{MAE of the joints in the reaching task}
+			\includegraphics[width=\linewidth]{bg_error_plot}
+			\captionof{figure}{Mean Error in the reaching task}
 		\end{center}
 		\end{minipage}
 		\hfill
 		\begin{minipage}[t]{0.475\textwidth}
 			\textbf{Perturbation:}\\[2pt]
-			A random coordinate is activated in the PM. As the activities build up, the joint angles in S1 are perturbed by a random amount by $\Delta \theta_{shoulder}$ and $\Delta \theta_{elbow}$. Both drawn from a Uniform Distribution $\mathcal{U}[-10^\circ, 10^\circ]$.\\
+			A random \textcolor{red}{target position} is activated in the PM. As the activities build up, the joint angles in S1 are perturbed by a random amount by $\Delta \theta_{shoulder}$ and $\Delta \theta_{elbow}$. Both drawn from a Uniform Distribution $\mathcal{U}[-10^\circ, 10^\circ]$.\\
 			\begin{center}
-				\includegraphics[width=0.8\linewidth]{error_pert}
-				\captionof{figure}{MAE of the joints in the perturbation task}
+				\includegraphics[width=\linewidth]{bg_error_plot_perturbation}
+				\captionof{figure}{Mean Error in the perturbation task}
 			\end{center}
 		\end{minipage}
 		\hfill
-		\begin{minipage}[t]{0.34\textwidth}
+		\begin{minipage}[t]{0.25\textwidth}
 			\vspace{8pt}
 			\textbf{Modulation of the population code:}\\[2pt]
 			A random target coordinate was learned. Figure 5 shows the population code of shoulder-like and elbow-like neurons under different scaling in D1. The activity of the D1 neurons has a direct influence on the norm of the population code \parencite{parkBasalGangliaCircuits2020}.\\
@@ -149,30 +171,17 @@
 			\end{center}
 		\end{minipage}
 		\hfill
-		\begin{minipage}[t]{0.58\textwidth}
+		\begin{minipage}[t]{0.725\textwidth}
 			\vspace{8pt}
-			\textbf{Conclusion:}\\[2pt]
-			To improve performance, we propose the following steps:
-			\begin{enumerate}[leftmargin=*, itemsep=0pt, topsep=0pt, parsep=0pt]
-			\item \textbf{Hyperparameter optimization:}
-			\begin{itemize}[leftmargin=*, itemsep=0pt]
-				\item Conduct extensive hyperparameter tests to find optimal values for learning rules.
-				\item Fine-tune the widths of Gaussian distributions in PM and S1 to balance learning speed, effectiveness, and accuracy.
-			\end{itemize}
-			\item \textbf{Synaptic plasticity analysis:}
-			\begin{itemize}[leftmargin=*, itemsep=0pt]
-				\item Thoroughly examine the plasticity in the connection between D1 and SNr.
-				\item Investigate alternative connectivity patterns, such as one-to-one connections, to potentially improve signal propagation without the need for ``reassembly'' at this junction.
-			\end{itemize}
-			\item \textbf{Comparative analysis with DRL models:}
-			\begin{itemize}[leftmargin=*, itemsep=0pt]
-				\item Benchmark the model's performance against state-of-the-art DRL algorithms such as \textit{PPO}, \textit{SAC}, \textit{TD3}, and \textit{NAF}
-			\end{itemize}
-			\item \textbf{Incorporate additional biologically-inspired mechanisms:}
-			\begin{itemize}[leftmargin=*, itemsep=0pt]
-				\item Explore the integration of mechanisms like synaptic scaling, intrinsic plasticity, or neuromodulation
-			\end{itemize}
-			\end{enumerate}
+			\textbf{Comparison to Deep RL:}\\[2pt]
+			In order to solve the reaching task with a PPO Network \parencite{} the problem is formalised as a MDP with state $s$ and possible actions $a$:\\[5pt]
+				$s = [\sin(\theta_{shoulder}, \theta_{elbow}),  \cos(\theta_{shoulder}, \theta_{elbow}), x_{error}, y_{error}]$\\
+				$a = [\delta\theta_{shoulder}, \delta\theta_{elbow}]$\\[5pt]
+			The reward r is defined as the negative L2 norm between current and target position (dense reward setting).
+			\begin{center}
+				\includegraphics[width=0.8\linewidth]{ppo_error_plot}
+				\captionof{figure}{Performance of the PPO trained Network}
+			\end{center}
 		\end{minipage}
 		\hfill
 	\end{adjustbox}
