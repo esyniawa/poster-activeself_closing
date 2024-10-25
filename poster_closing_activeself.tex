@@ -174,9 +174,10 @@
 		\begin{minipage}[t]{0.725\textwidth}
 			\vspace{8pt}
 			\textbf{Comparison to Deep RL:}\\[2pt]
-			In order to solve the reaching task with a PPO Network \parencite{} the problem is formalised as a MDP with state $s$ and possible actions $a$:\\[5pt]
-				$s = [\sin(\theta_{shoulder}, \theta_{elbow}),  \cos(\theta_{shoulder}, \theta_{elbow}), x_{error}, y_{error}]$\\
-				$a = [\delta\theta_{shoulder}, \delta\theta_{elbow}]$\\[5pt]
+			In order to solve the reaching task with a PPO Agent \parencite{schulmanProximalPolicyOptimization2017} the problem is formalised as a MDP with state $s$ and possible actions $a$:\\
+			\begin{center}
+				$s = [\sin(\theta_{sh}, \theta_{el}),  \cos(\theta_{sh}, \theta_{el}), x_{error}, y_{error}] \hspace{25pt} a = [\delta\theta_{sh}, \delta\theta_{el}]\vspace{5pt}$
+			\end{center}
 			The reward r is defined as the negative L2 norm between current and target position (dense reward setting).
 			\begin{center}
 				\includegraphics[width=0.8\linewidth]{ppo_error_plot}
