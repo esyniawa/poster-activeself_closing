@@ -173,7 +173,7 @@
 		\begin{minipage}[t]{0.25\textwidth}
 			\vspace{8pt}
 			\textbf{Modulation of the population code:}\\[2pt]
-			A random \textcolor{red}{target position} was learned. Figure 5 shows the population code of shoulder-like and elbow-like neurons under different scaling in D1. The activity of the D1 neurons has a direct influence on the norm of the population code \parencite{parkBasalGangliaCircuits2020}.\\
+			A random \textcolor{red}{target position} was learned. Figure 6 shows the population code of shoulder-like and elbow-like neurons under different scaling in D1. The activity of the D1 neurons has a direct influence on the norm of the population code \parencite{parkBasalGangliaCircuits2020}.\\
 			\begin{center}
 				\includegraphics[width=1.1\linewidth]{d1_gain}
 				\captionof{figure}{After 100 ms simulation}
@@ -195,7 +195,7 @@
 				\end{bmatrix}  \vspace{5pt}
 				$
 			\end{center}
-			The reward $r$ is defined as the negative L2 norm between current and target position (dense reward setting). In addition, there is a sparse positive reward $r$ if an action is close enough to the target position, or a negative reward r if an action leads outside the joint constraints.\\[5pt]
+			The reward $r$ is defined as the negative L2 norm between current and target position (dense reward setting). In addition, there is a sparse positive reward if an action is close enough to the target position, or a sparse negative reward if an action leads outside the joint constraints.\\[5pt]
 			\begin{center}
 				\includegraphics[width=0.8\linewidth]{drl_error_plot}
 				\captionof{figure}{Performance of the \textit{PPO} and \textit{TD3} trained Network}
