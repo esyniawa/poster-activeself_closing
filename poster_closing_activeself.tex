@@ -1,4 +1,4 @@
-\documentclass[portrait,final,a0paper,fontscale=0.374]{baposter}
+\documentclass[portrait,final,a0paper,fontscale=0.39]{baposter}
 
 %% read in constants, custom functions and used packages
 \input{functions/packages}
@@ -39,7 +39,7 @@
 	% University logo
 	{\includegraphics[height=6.5em]{tuckhseng_color}} 
 	% Title
-	{\bf\Large{Neurocomputational Modeling of Sensorimotor Integration via Cortico-Basal Ganglia-Thalamic Loops}\vspace{6pt}}
+	{\bf\Large{Proprioceptive Context in Motor Learning: A Neurocomputational Study of Basal Ganglia Circuits}\vspace{6pt}}
 	% Authors
 	{\normalsize Erik~Syniawa\textsuperscript{1} and Fred~Hamker\textsuperscript{1} \\ \vspace{0.8em}
 	
@@ -61,39 +61,48 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % use height in headerbox to align multiple boxes 
 % height= <size in percent of column height>, else [auto]%
-\headerbox{Introduction}{name=infos,column=0,row=0, span=2, height=0.092}{
+\headerbox{Introduction}{name=infos,column=0,row=0, span=2, height=0.13}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
-		\justifying
-		\textit{Sensorimotor integration} is crucial for early human development, yet its neural mechanisms are not fully understood.\\ Our study presents a neurocomputational model that explores the interplay between the cortex, basal ganglia, and thalamus in this process, with a focus on the centro median nuclei (CM) of the intralaminar nuclei (ILN) of the thalamus.\\
+		\begin{minipage}[r]{0.475\textwidth}
+			\justifying
+			The basal ganglia (BG) are a group of interconnected nuclei located deep within the brain beneath the cerebral cortex (Figure 1).\\ The cortex-basal ganglia-thalamus (CBGT-) loops form circuits that support action selection, motor learning, and goal-directed behavior.\\
+		\end{minipage}
+		\hfill
+		\begin{minipage}[r]{0.475\textwidth}
+			\centering
+			\includegraphics[width=0.8\linewidth]{BG_3D_screenshot}
+			\captionof{figure}{3D Reconstruction\\
+				of the BG \parencite{BG}}
+		\end{minipage}
+		\hfill
 	\end{adjustbox}
 }
 
 \headerbox{Overview}{name=overview,column=2,row=0, span=4}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
-		\begin{minipage}[r]{0.28\textwidth}
-			\includegraphics[width=0.9\linewidth]{movement_plan}
-			\captionof{figure}{Current virtual robot setup.}
-		\end{minipage}
-		\hfill
-		\begin{minipage}[r]{0.72\textwidth}
+		\begin{minipage}[r]{0.65\textwidth}
 			\justifying
 				\textbf{Task:}
-				We implemented a virtual robot that can move from arbitrary \textcolor{blue}{starting position} to arbitrary \textcolor{red}{target position} in the plane (Figure 1)\\[3pt]
-				\textbf{Training:}
-				Through infant-like motor babbling, our network forms associations between the action (joint angle) and the outcome (position achieved)\parencite{baladronContributionBasalGanglia2023b}.The internal state (Joint angle of initial state) is projected via the CM into the CBGT loop, which ensures that action and outcome are learned under one internal state\\[3pt]
+				We have implemented a virtual iCub robot in the plane that is able to link proprioceptive information with a target coordinate \textcolor{red}{target position} (Figure 2). It links both the initial proprioceptive information of the \textcolor{blue}{initial position} and the proprioceptive information of the \textcolor{blue}{target position}\\[3pt]
+				\textbf{Training:}Like in Baladron et al. \parencite{baladronContributionBasalGanglia2023b} through infantile motor babbling, our network forms associations between the action (changed joint angle) and the outcome (position of the changed joint angle). The initial state (initial joint angle) is projected into the striatum via the S1, which makes it possible to learn the proprioceptive context under different \textcolor{blue}{initial positions}.\\[3pt]
 				\textbf{Features:}
-				Shows how sensorimotor integration occurs through cortico-basal ganglia-thalamo-cortical loops with more dynamical role of the basal ganglia in both action selection and movement modulation \parencite{parkBasalGangliaCircuits2020}
+				Shows how motor learning of proprioceptive context occurs via CBGT-loops with possible implications of a more dynamical role of the BG in both action selection and movement modulation \parencite{parkBasalGangliaCircuits2020}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[r]{0.3\textwidth}
+			\includegraphics[width=\linewidth]{movement_plan}
+			\captionof{figure}{Virtual iCub environment}
 		\end{minipage}
 		\hfill
 	\end{adjustbox}
 }
 
 
-\headerbox{Computational model}{name=model, column=0, below=infos, span=2, height=0.488}{
+\headerbox{Computational Model}{name=model, column=0, below=infos, span=2}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
 		\begin{minipage}[t]{\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{model_overview}
+			\includegraphics[width=\linewidth]{model}
 			\captionof{figure}{Overview of the model}
 			\vspace{5pt}
 		\end{minipage}
@@ -105,9 +114,10 @@
 }
 
 
-\headerbox{Model definitions}{name=definitions, column=2, below=overview, span=4}{
+\headerbox{Model Definitions}{name=definitions, column=2, below=overview, span=4}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
 		\begin{minipage}[r]{0.475\textwidth}
+			\justifying
 		The model is implemented in Python 3.12 with the neurosimulator ANNarchy 4.7.3 \parencite{vitayANNarchyCodeGeneration2015}. All neurons are rate-coded.\\
 				
 		\textbf{Neuron model:}\\
@@ -117,19 +127,18 @@
 		$${mp}(t) = \begin{cases}\operatorname{logistic}{\left({r}(t) \right)}\qquad \text{if} \quad {r}(t) > 1.0\\ ({r}(t))^+ \qquad \text{otherwise.} \end{cases} \hspace{2em} \text{with:  } \xi \sim \mathcal{U}$$
 		
 		
-		\textbf{Synaptic learning rule:}\\
+		\textbf{Synaptic learning rules:}\\
 		$$\tau_w \frac{d w_{ij} }{ dt } = m_{DA} \cdot C_{ij} - \alpha \left(r^{post}_j - \bar{r}^{post} - \gamma^{post}\right)^2$$
 		\end{minipage}
 		\hfill
 		\begin{minipage}[r]{0.475\textwidth}
 		\justifying
 		$$m_{DA} = const \cdot \left(r^{DA} - baseline_{DA}\right) \hspace{1.5em} \tau_{\alpha} \frac{d \alpha_j }{ dt } + \alpha_j = (r^{post}_j - \Theta)$$
-		\textit{Cortico-striatal} (PM $\rightarrow$ Striatum)
+		\textit{Cortico-striatal} (PM $\rightarrow$ D1)
 		$$ C_{ij} = \left(r^{pre}_j - \bar{r}^{pre} - \gamma^{pre}\right)^+ \left(r^{post}_j - \bar{r}^{post} - \gamma^{post}\right) $$	
-		\textbf{Reward Prediction Error (RPE):}\\[5pt]
-			When certain striatum neurons are repeatedly active, they inhibit the DA release ($r^{DA}$). 
+		\textit{Reward Prediction Error (RPE):} (D1 $\rightarrow$ SNc)\\[3pt]
+			When certain´ D1 neurons are repeatedly active, they inhibit the DA release ($r^{DA}$) in the SNc. 
 			This prevents new associations from being learned by the same striatum neurons (\textit{novelty learning}).\\
-			(Striatum $\rightarrow$ SNc)
 			$$ \tau \frac{d w_{j}^{DA}}{dt} =  \left(r^{DA} - baseline_{DA}\right)^+ \left( r^{pre}_j - \bar{r}^{pre} - \gamma^{pre}\right)^+ $$
 		\end{minipage}
 	\end{adjustbox}
@@ -145,7 +154,7 @@
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
 		\begin{minipage}[t]{0.475\textwidth}
 			\textbf{Reaching:}\\[2pt]
-			A random \textcolor{red}{target position} is activated in the PM. If the coordinate has been learnt, certain D1 neurons become active, which in turn encode the joint angle to the coordinate via the SNr activity in M1.\\[10pt]
+			A random \textcolor{red}{target position} is activated in the PM. If the association was learned during training, certain D1 patches become active and disinhibit the VL. M1 becomes active. \\[10pt]
 		\begin{center}
 			\includegraphics[width=\linewidth]{bg_error_plot}
 			\captionof{figure}{Mean Error in the reaching task}
@@ -164,7 +173,7 @@
 		\begin{minipage}[t]{0.25\textwidth}
 			\vspace{8pt}
 			\textbf{Modulation of the population code:}\\[2pt]
-			A random target coordinate was learned. Figure 5 shows the population code of shoulder-like and elbow-like neurons under different scaling in D1. The activity of the D1 neurons has a direct influence on the norm of the population code \parencite{parkBasalGangliaCircuits2020}.\\
+			A random \textcolor{red}{target position} was learned. Figure 5 shows the population code of shoulder-like and elbow-like neurons under different scaling in D1. The activity of the D1 neurons has a direct influence on the norm of the population code \parencite{parkBasalGangliaCircuits2020}.\\
 			\begin{center}
 				\includegraphics[width=1.1\linewidth]{d1_gain}
 				\captionof{figure}{After 100 ms simulation}
@@ -173,15 +182,23 @@
 		\hfill
 		\begin{minipage}[t]{0.725\textwidth}
 			\vspace{8pt}
-			\textbf{Comparison to Deep RL:}\\[2pt]
-			In order to solve the reaching task with a PPO Agent \parencite{schulmanProximalPolicyOptimization2017} the problem is formalised as a MDP with state $s$ and possible actions $a$:\\
+			\textbf{Comparison to Deep RL methods:}\\[2pt]
+			In order to solve the reaching task with a \textit{PPO} \parencite{schulmanProximalPolicyOptimization2017} and a \textit{TD3} Agent \parencite{fujimoto2018addressing} the problem is formalised as a MDP with state $s$ and possible actions $a$:\\[-8pt]
 			\begin{center}
-				$s = [\sin(\theta_{sh}, \theta_{el}),  \cos(\theta_{sh}, \theta_{el}), x_{error}, y_{error}] \hspace{25pt} a = [\delta\theta_{sh}, \delta\theta_{el}]\vspace{5pt}$
+				$s = [\sin(\underline{\theta}),  \cos(\underline{\theta}), \underline{x}_{error}] \hspace{10pt} a = \Delta\underline{\theta}\hspace{10pt} \text{with:  } \underline{\theta}=\begin{bmatrix}
+					\theta_{shoulder} \\
+					\theta_{elbow} \\ 
+				\end{bmatrix} \hspace{10pt} 
+				\underline{x}_{error}=\begin{bmatrix}
+					\left\lVert x_{target} - x_{current} \right\rVert \\
+					\left\lVert y_{target} - y_{current} \right\rVert \\ 
+				\end{bmatrix}  \vspace{5pt}
+				$
 			\end{center}
-			The reward r is defined as the negative L2 norm between current and target position (dense reward setting).
+			The reward $r$ is defined as the negative L2 norm between current and target position (dense reward setting). In addition, there is a sparse positive reward $r$ if an action is close enough to the target position, or a negative reward r if an action leads outside the joint constraints.\\[5pt]
 			\begin{center}
-				\includegraphics[width=0.8\linewidth]{ppo_error_plot}
-				\captionof{figure}{Performance of the PPO trained Network}
+				\includegraphics[width=0.8\linewidth]{drl_error_plot}
+				\captionof{figure}{Performance of the \textit{PPO} and \textit{TD3} trained Network}
 			\end{center}
 		\end{minipage}
 		\hfill
@@ -190,11 +207,11 @@
 }
 
 
-\headerbox{Training procedure}{name=res, column=0, below=model, above=refs , span=2}{
+\headerbox{Procedure}{name=res, column=0, below=model, above=refs , span=2}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
 		
 		\begin{minipage}[t]{\textwidth}
-			\includegraphics[width=\textwidth]{training}	
+			\includegraphics[width=0.95\textwidth]{training}	
 		\end{minipage}
 		
 	\end{adjustbox}	

@@ -4,33 +4,44 @@
 \usepackage{algpseudocode}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\setlength{\textfloatsep}{5pt}
+
+% Add these lines to control algorithm spacing
+\usepackage{setspace}
+\algrenewcommand\algorithmicindent{1.0em}
+% Additional spacing control
+\algdef{S}{Begin}{}{} % redefine Begin to add space
+\algdef{S}{End}{}{} % redefine End to add space
 
 \begin{document}
-		
+	
 	\begin{algorithm}
-		\caption{Motor Babbling Training}
-		\begin{algorithmic}[1]
-			\State Initialize $start\_thetas$
-			\For{$n\_trials$ in $(1,000, 2,000, 4,000, 8,000, 16,000, 32,000)$}
-			\Function{TrainReach}{$n\_trial$}
-			\For{$i = 1$ to $n\_trial$}
-			\State $target\_thetas, target\_coordinate \gets \text{\small GenerateRandomTarget()}$
-			\State $\text{Simulate}(50 ms)$
-			\State $CM.r = \text{PopulationCode}(target\_thetas)$
-			\State $PM.r = \text{BivariateGauss}(target\_coordinate)$
-			\State $S1.r = \text{BivariateGauss}(start\_thetas)$
-			\State $SNc.r = 1.0$
-			\State $\text{Simulate}(450 ms)$
-			\State $start\_thetas \gets target\_thetas$
-			\State $\text{ResetNetwork}()$
-			\EndFor
-			\EndFunction
-			\Function{TestReach}{trials = 50}
-			\Return error
-			\EndFunction
-			\EndFor
-		\end{algorithmic}
+		\caption{Motor Babbling Paradigma}
+		\scriptsize
+		\begin{spacing}{1.1} % Adjust this value to increase/decrease spacing
+			\begin{algorithmic}[1]
+				\State Initialize $\underline{\theta}_{target}$
+				\For{$n\_trials$ in $(1,000, 2,000, 4,000, 8,000, 16,000, 32,000)$}
+				\Function{TrainReach}{$n\_trials$}
+				\For{$i = 0$ to $n\_trials$}
+				\State $\underline{\theta}_{target}, \underline{x}_{target} \gets \text{GenerateRandomTarget()}$
+				\State $\text{Simulate}(50 ms) \text{ without Inputs}$
+				\State $CM.r = \text{PopulationCode}(\underline{\theta}_{target})$
+				\State $S1.r = \text{BivariateGauss}(\underline{\theta}_{init})$
+				\State $PM.r = \text{BivariateGauss}( \underline{x}_{target})$
+				\State $SNc.r = 1.0$
+				\State $\text{Simulate}(450 ms)$
+				\State $\underline{\theta}_{init} \gets \underline{\theta}_{target}$, $\underline{x}_{out}=\text{ForwardKinematic}(\underline{\theta}_{M1}) $
+				\State $\text{ResetNetwork}()$	
+				\small
+				\EndFor
+				\EndFunction
+				\Function{TestReach}{trials = 100}
+				\Return $error = \left\lVert \underline{x}_{target} - \underline{x}_{out} \right\rVert$
+				\EndFunction
+				\EndFor
+			\end{algorithmic}
+		\end{spacing}
 	\end{algorithm}
 	
-
 \end{document}
