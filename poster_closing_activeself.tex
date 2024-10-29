@@ -83,8 +83,9 @@
 		\begin{minipage}[r]{0.65\textwidth}
 			\justifying
 				\textbf{Task:}
-				We have implemented a virtual iCub robot in the plane that is able to link proprioceptive information with a target coordinate \textcolor{red}{target position} (Figure 2). It links both the initial proprioceptive information of the \textcolor{blue}{initial position} and the proprioceptive information of the \textcolor{blue}{target position}\\[3pt]
-				\textbf{Training:}Like in Baladron et al. \parencite{baladronContributionBasalGanglia2023b} through infantile motor babbling, our network forms associations between the action (changed joint angle) and the outcome (position of the changed joint angle). The initial state (initial joint angle) is projected into the striatum via the S1, which makes it possible to learn the proprioceptive context under different \textcolor{blue}{initial positions}.\\[3pt]
+				We have implemented a virtual iCub robot in the plane that is able to link proprioceptive information with a \textcolor{red}{target position} (Figure 2). It links both the initial proprioceptive information of the \textcolor{blue}{initial position} and the proprioceptive information of the \textcolor{blue}{target position}\\[3pt]
+				\textbf{Training:}
+				Like in Baladron et al. \parencite{baladronContributionBasalGanglia2023b} through infantile motor babbling, our network forms associations between the action (changed joint angle) and the outcome (position of the changed joint angle). The initial state (initial joint angle) is projected into the striatum via the S1, which makes it possible to learn the proprioceptive context under different \textcolor{blue}{initial positions}.\\[3pt]
 				\textbf{Features:}
 				Shows how motor learning of proprioceptive context occurs via CBGT-loops with possible implications of a more dynamical role of the BG in both action selection and movement modulation \parencite{parkBasalGangliaCircuits2020}
 		\end{minipage}
@@ -154,7 +155,7 @@
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
 		\begin{minipage}[t]{0.475\textwidth}
 			\textbf{Reaching:}\\[2pt]
-			A random \textcolor{red}{target position} is activated in the PM. If the association was learned during training, certain D1 patches become active and disinhibit the VL. M1 becomes active. \\[10pt]
+			Random \textcolor{red}{target positions} are activated in the PM sequentially. If the association was learned during training, certain D1 patches become active and disinhibit the VL. M1 becomes active. \\[10pt]
 		\begin{center}
 			\includegraphics[width=\linewidth]{bg_error_plot}
 			\captionof{figure}{Mean Error in the reaching task}
@@ -163,7 +164,7 @@
 		\hfill
 		\begin{minipage}[t]{0.475\textwidth}
 			\textbf{Perturbation:}\\[2pt]
-			A random \textcolor{red}{target position} is activated in the PM. As the activities build up, the joint angles in S1 are perturbed by a random amount by $\Delta \theta_{shoulder}$ and $\Delta \theta_{elbow}$. Both drawn from a Uniform Distribution $\mathcal{U}[-10^\circ, 10^\circ]$.\\
+			Random \textcolor{red}{target positions} are activated in the PM sequentially. As the activities build up, the joint angles in S1 are perturbed by a random amount by $\Delta \theta_{shoulder}$ and $\Delta \theta_{elbow}$. Both drawn from a Uniform Distribution $\mathcal{U}[-10^\circ, 10^\circ]$.\\
 			\begin{center}
 				\includegraphics[width=\linewidth]{bg_error_plot_perturbation}
 				\captionof{figure}{Mean Error in the perturbation task}
@@ -190,12 +191,12 @@
 					\theta_{elbow} \\ 
 				\end{bmatrix} \hspace{10pt} 
 				\underline{x}_{error}=\begin{bmatrix}
-					\left\lVert x_{target} - x_{current} \right\rVert \\
-					\left\lVert y_{target} - y_{current} \right\rVert \\ 
+					x_{target} - x_{current} \\
+					y_{target} - y_{current} \\ 
 				\end{bmatrix}  \vspace{5pt}
 				$
 			\end{center}
-			The reward $r$ is defined as the negative L2 norm between current and target position (dense reward setting). In addition, there is a sparse positive reward if an action is close enough to the target position, or a sparse negative reward if an action leads outside the joint constraints.\\[5pt]
+			The reward $r$ is defined as the negative L2 norm between current and target position (dense reward setting). In addition, there is a sparse positive reward if an action is close enough to the \textcolor{red}{target position}, or a sparse negative reward if an action leads outside the joint constraints.\\[5pt]
 			\begin{center}
 				\includegraphics[width=0.8\linewidth]{drl_error_plot}
 				\captionof{figure}{Performance of the \textit{PPO} and \textit{TD3} trained Network}
