@@ -1,12 +1,13 @@
-# LaTeX-Poster-Template
+# Proprioceptive Context in Motor Learning: A Neurocomputational Study of Basal Ganglia Circuits
 
-This template uses the baposter-class to arrange a scientific poster. For more information visit the [author's homepage](http://www.brian-amberg.de/uni/poster/).
+Poster presentation for the [SPP "Active Self"](https://activeself.de/).
 
-### Structure
+The model used for the poster can accessed under the git submodule rl-reaching.
 
-* **packages.tex** lists the necessary packages and custom functions.
-* **pgf_graphs.tex** gives an example of how to plot in pgfsplot. More examples are found [here](https://pgfplots.net/).
-* **myPoster.tex** can be modified to your liking. In the document there are some examples how you can arrange your poster.
+## Acknowledgments
+
+- [ANNarchy](https://github.com/ANNarchy/ANNarchy) development team
+- This poster uses the baposter-class to arrange a scientific poster. For more information visit the [author's homepage](http://www.brian-amberg.de/uni/poster/).
 
 If you have any questions, comments or suggestions for additional content, please write me an email:
 <a href="mailto:erik.syniawa@informatik.tu-chemnitz.de">erik.syniawa@informatik.tu-chemnitz.de</a>
