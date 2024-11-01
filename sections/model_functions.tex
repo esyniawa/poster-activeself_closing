@@ -1,15 +1,14 @@
+\footnotesize
 \justifying
 \textbf{\textcolor{training-set}{Input Populations}}:\\[2pt]
-\footnotesize
 \textbf{PM}: Encodes the \textcolor{red}{target position} in the reaching space. A 3-factor learning rule is used to establish connections to active D1 patches (see Model definitions)\\[2pt]
-\textbf{S1}: Encodes current joint angles of the \textcolor{blue}{initial position} via gain fields. S1 sends projections that diverge to innervate multiple regions in the Striatum (D1 patches) \parencite{flahertyCorticostriatalTransformationsPrimate1991}\\[2pt]
-\textbf{CM}: Centro median nuclei located in the intralaminar nuclei sends proprioceptive information of the target position into the M1. This connection is deactivated in the test phase\\[10pt]
-\small
+\textbf{S1}: Encodes current joint angles of the \textcolor{blue}{initial position} via gain fields. S1 modulates certain D1 patches \parencite{flahertyCorticostriatalTransformationsPrimate1991}\\[2pt]
+\textbf{CM}: Centro median nuclei located in the intralaminar thalamus sends proprioceptive information of the target position into the M1. This connection is \underline{deactivated} in the test phase\\[10pt]
 \textbf{Recurrent Populations:}\\[2pt]
 \footnotesize
 \textbf{D1} (Striatum): Activity in S1 and M1 activates certain patches of D1 receptors in the striatum\\[2pt]
 \textbf{SNr}: Pooling takes place from D1 $\rightarrow$ SNr. Active joint angle encodings in D1 inhibit corresponding neurons in SNr\\[2pt]
-\textbf{VL}: Inactive SNr neurons disinhibit VL neurons\\[2pt]
+\textbf{VL} (Thalamus): Inactive SNr neurons disinhibit VL neurons\\[2pt]
 \textbf{M1}: M1 encodes shoulder like and elbow like neurons via population code 
 \parencite{pruszynskiPrimaryMotorCortex2011}, which map the joint angle to a specific coordinate. The weighted sum of the M1 activity is the angle of the corresponding joint\\[2pt]
-\textbf{SNc}: Dopamine (DA) is released through movement \parencite{cheungLearningCriticallyDrives2023}, which makes the connections between PM $\rightarrow$ D1 plastic. Active D1 neurons inhibit DA release (\textit{RPE})
+\textbf{SNc}: Dopamine (DA) is released through simulated movement \parencite{cheungLearningCriticallyDrives2023}, which makes the connections between PM $\rightarrow$ D1 plastic. Active D1 neurons inhibit DA release (\textit{RPE}), so that only new associations are learned.

@@ -61,7 +61,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % use height in headerbox to align multiple boxes 
 % height= <size in percent of column height>, else [auto]%
-\headerbox{Introduction}{name=infos,column=0,row=0, span=2, height=0.13}{
+\headerbox{Introduction}{name=infos,column=0,row=0, span=2, height=0.135}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
 		\begin{minipage}[r]{0.475\textwidth}
 			\justifying
@@ -78,12 +78,12 @@
 	\end{adjustbox}
 }
 
-\headerbox{Overview}{name=overview,column=2,row=0, span=4}{
+\headerbox{Overview}{name=overview,column=2,row=0, span=4, height=0.135}{
 	\begin{adjustbox}{minipage=0.95\textwidth, margin=5pt, center}
 		\begin{minipage}[r]{0.65\textwidth}
 			\justifying
 				\textbf{Task:}
-				We have implemented a virtual iCub robot in the plane that is able to link proprioceptive information with a \textcolor{red}{target position} (Figure 2). It links both the initial proprioceptive information of the \textcolor{blue}{initial position} and the proprioceptive information of the \textcolor{blue}{target position}\\[3pt]
+				We have implemented a virtual iCub robot in the plane that is able to link proprioceptive information with a \textcolor{red}{target position} (Figure 2). It links both the initial proprioceptive information of the \textcolor{blue}{initial position} and the \textcolor{red}{target position}\\[3pt]
 				\textbf{Training:}
 				Like in Baladron et al. \parencite{baladronContributionBasalGanglia2023b} through infantile motor babbling, our network forms associations between the action (changed joint angle) and the outcome (position of the changed joint angle). The initial state (initial joint angle) is projected into the striatum via the S1, which makes it possible to learn the proprioceptive context under different \textcolor{blue}{initial positions}.\\[3pt]
 				\textbf{Features:}
@@ -123,9 +123,9 @@
 				
 		\textbf{Neuron model:}\\
 		$$
-		\tau \frac{d r^{post}_j }{ dt } + r^{post}_j = \sum_{i \in exc}{w_{ij} \cdot r^{pre}_i} - \sum_{i \in inh}{w_{ij} \cdot r^{pre}_i} + baseline + \xi 
+		\tau \frac{d mp^{post}_j }{ dt } + mp^{post}_j = \sum_{i \in exc}{w_{ij} \cdot mp^{pre}_i} - \sum_{i \in inh}{w_{ij} \cdot mp^{pre}_i} + baseline + \xi 
 		$$
-		$${mp}(t) = \begin{cases}\operatorname{logistic}{\left({r}(t) \right)}\qquad \text{if} \quad {r}(t) > 1.0\\ ({r}(t))^+ \qquad \text{otherwise.} \end{cases} \hspace{2em} \text{with:  } \xi \sim \mathcal{U}$$
+		$${r}(t) = \begin{cases}\operatorname{logistic}{\left({mp}(t) \right)}\qquad \text{if} \quad {mp}(t) > 1.0\\ ({mp}(t))^+ \qquad \hspace{30pt} \text{otherwise.} \end{cases} \hspace{2em} \text{with:  } \xi \sim \mathcal{U}$$
 		
 		
 		\textbf{Synaptic learning rules:}\\
